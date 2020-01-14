@@ -5,10 +5,11 @@ require 'kimurai'
 require 'mechanize'
 require 'sanitize'
 
-I18n.config.available_locales = :en
-
 class SuministrosPR < Kimurai::Base
-  @name = "suministrospr-scraper"
+  DATA_DIR = File.expand_path('data', __dir__).freeze
+  ALL_DATA_FILES_PATH = File.join(DATA_DIR, '*.json').freeze
+
+  @name = "suministrospr-web-scraper"
   @engine = :mechanize
   @start_urls = ["https://suministrospr.com/"]
   @config = {
@@ -30,9 +31,7 @@ class SuministrosPR < Kimurai::Base
     sector_data[:title] = response.xpath("//h1").text
     sector_data[:content] = Sanitize.fragment(response.xpath("//div[@class='article-content']").to_html, Sanitize::Config::BASIC).strip!
 
-    sector_json = File.join(__dir__, "data/#{I18n.transliterate(sector_data[:title])}.json")
+    sector_json = File.join(DATA_DIR, "#{I18n.transliterate(sector_data[:title])}.json")
     save_to sector_json, sector_data, format: :pretty_json
   end
 end
-
-SuministrosPR.crawl!
