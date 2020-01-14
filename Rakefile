@@ -23,8 +23,8 @@ task :help do
 end
 
 task :boom do
-  Rake::Task['data:crawl']
-  Rake::Task['data:zip']
+  Rake::Task['data:crawl'].execute
+  Rake::Task['data:zip'].execute
 end
 
 namespace :data do
