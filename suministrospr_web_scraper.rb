@@ -23,7 +23,7 @@ class SuministrosPR < Kimurai::Base
   def parse_sector_page(response, url:, data: {})
     sector_data = {}
     sector_data[:url] = url
-    sector_data[:municipio] = response.xpath("//div[@class='breadcrumbs pauple_helpie_breadcrumbs']/a[starts-with(@href, 'https://suministrospr.com/municipios/')]").text
+    sector_data[:municipio] = response.xpath("//div[@class='breadcrumbs pauple_helpie_breadcrumbs']/a[@class='mainpage-link'][starts-with(@href, 'https://suministrospr.com/municipios/')][position()=1]").text
     sector_data[:title] = response.xpath("//h1").text
     sector_data[:content] = response.xpath("//div[@class='article-content']").to_html
 
