@@ -2,7 +2,7 @@
 
 This is a web scraper for the [SuministrosPR.com](https://SuministrosPR.com) website. It was developed in order to extract the data and ingest it into a new webapp developed at https://github.com/Code4PuertoRico/suministrospr.
 
-## Instructions
+## Installation
 
 You must have a working Ruby environment with version `2.6.5` and [Bundler](https://bundler.io/) installed.
 
@@ -19,10 +19,16 @@ cd suministrospr-web-scraper
 bundle install
 ```
 
-### Execute web scraper
+## Executing scraper
 
 ```ruby
-bundle exec suministrospr_web_scraper.rb
+bundle exec rake boom # chicken nuggets
+```
+
+For help, type:
+
+```ruby
+bundle exec rake help
 ```
 
 ## Data
