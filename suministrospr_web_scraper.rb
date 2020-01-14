@@ -4,6 +4,8 @@ require 'kimurai'
 require 'mechanize'
 require 'i18n'
 
+I18n.config.available_locales = :en
+
 class SuministrosPR < Kimurai::Base
   @name = "suministrospr-scraper"
   @engine = :mechanize
