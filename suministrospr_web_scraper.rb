@@ -27,7 +27,7 @@ class SuministrosPR < Kimurai::Base
     sector_data[:title] = response.xpath("//h1").text
     sector_data[:content] = response.xpath("//div[@class='article-content']").to_html
 
-    sector_json = "./data/raw/#{I18n.transliterate(sector_data[:title])}.json"
+    sector_json = File.join(__dir__, "data/#{I18n.transliterate(sector_data[:title])}.json")
     save_to sector_json, sector_data, format: :pretty_json
   end
 end
