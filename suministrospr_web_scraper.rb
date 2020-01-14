@@ -1,8 +1,9 @@
 #!/usr/bin/env ruby
 
+require 'i18n'
 require 'kimurai'
 require 'mechanize'
-require 'i18n'
+require 'sanitize'
 
 I18n.config.available_locales = :en
 
@@ -16,7 +17,7 @@ class SuministrosPR < Kimurai::Base
   }
 
   def parse(response, url:, data: {})
-    # Load one municipality page and parse all the links to 
+    # Go to the main page, find all links related to a 'sector' page and parse each one individually.
     response.xpath("//a[starts-with(@href, 'https://suministrospr.com/sectores/')]").each do |a|
       request_to :parse_sector_page, url: a[:href]
     end
@@ -27,7 +28,7 @@ class SuministrosPR < Kimurai::Base
     sector_data[:url] = url
     sector_data[:municipio] = response.xpath("//div[@class='breadcrumbs pauple_helpie_breadcrumbs']/a[@class='mainpage-link'][starts-with(@href, 'https://suministrospr.com/municipios/')][position()=1]").text
     sector_data[:title] = response.xpath("//h1").text
-    sector_data[:content] = response.xpath("//div[@class='article-content']").to_html
+    sector_data[:content] = Sanitize.fragment(response.xpath("//div[@class='article-content']").to_html, Sanitize::Config::BASIC).strip!
 
     sector_json = File.join(__dir__, "data/#{I18n.transliterate(sector_data[:title])}.json")
     save_to sector_json, sector_data, format: :pretty_json

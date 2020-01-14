@@ -1,5 +1,7 @@
 # Gemfile
 
+gem 'i18n'
 gem 'kimurai'
 gem 'mechanize'
-gem 'i18n'
+gem 'nokogiri'
+gem 'sanitize'
