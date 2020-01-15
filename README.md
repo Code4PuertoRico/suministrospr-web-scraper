@@ -49,4 +49,4 @@ Each post found at [SuministrosPR.com](https://SuministrosPR.com) will be saved 
 - Entry will contain `EMPTY_MUNICIPIO` if `municipio` can't be parsed.
 - Entry will contain `EMPTY_TITLE` if `title` is empty.
 - Only the first 100 characters of the `title` will be used in filename.
-- Parser timestamp and 'DUPLICATE' are used in filename if file already exists.
+- Parser timestamp and `DUPLICATE` are appended to filename if file already exists.
