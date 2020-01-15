@@ -35,7 +35,7 @@ bundle exec rake help
 
 ```bash
 $ docker build --rm -t suministrospr-web-scraper .
-$ docker run -it --rm suministrospr-web-scraper bundle exec rake boom
+$ docker run -it --rm -v "$PWD":/usr/src/app suministrospr-web-scraper bundle exec rake boom
 ```
 
 ## Data
