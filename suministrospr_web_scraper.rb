@@ -25,13 +25,35 @@ class SuministrosPR < Kimurai::Base
   end
 
   def parse_sector_page(response, url:, data: {})
+    # Parse elements.
+    municipio = response.xpath("//div[@class='breadcrumbs pauple_helpie_breadcrumbs']/a[@class='mainpage-link'][starts-with(@href, 'https://suministrospr.com/municipios/')][position()=1]").text.strip
+    title = response.xpath("//h1").text.strip
+    content = Sanitize.fragment(response.xpath("//div[@class='article-content']").to_html, Sanitize::Config::BASIC).strip
+
+    # Create hash that will be serialized to JSON.
     sector_data = {}
     sector_data[:url] = url
-    sector_data[:municipio] = response.xpath("//div[@class='breadcrumbs pauple_helpie_breadcrumbs']/a[@class='mainpage-link'][starts-with(@href, 'https://suministrospr.com/municipios/')][position()=1]").text
-    sector_data[:title] = response.xpath("//h1").text
-    sector_data[:content] = Sanitize.fragment(response.xpath("//div[@class='article-content']").to_html, Sanitize::Config::BASIC).strip!
+    sector_data[:municipio] = municipio.empty? ? 'EMPTY_MUNICIPIO' : municipio
+    sector_data[:title] = title.empty? ? 'EMPTY_TITLE' : title
+    sector_data[:content] = content
 
-    sector_json = File.join(DATA_DIR, "#{I18n.transliterate(sector_data[:title])}.json")
-    save_to sector_json, sector_data, format: :pretty_json
+    # Get current time and use in filename if sector has no title or file already exists.
+    timestamp = Time.now.to_i
+    # Construct filename.
+    json_filename = if title.empty?
+      # Using timestamp in filename if title is empty.
+      "#{I18n.transliterate(municipio)}-EMPTY_TITLE-#{timestamp}.json"
+    else
+      # Transliterating title to ASCII and using as filename.
+      "#{I18n.transliterate(municipio)}-#{I18n.transliterate(title).slice(0,100)}.json"
+    end
+    # Adding timestamp to filename if a file with that name already exists.
+    if File.exist?(File.join(DATA_DIR, json_filename))
+      json_filename = "#{File.basename(json_filename, ".json")}-DUPLICATE-#{timestamp}.json"
+    end
+
+    # Saving parsed data to JSON file.
+    json_filepath = File.join(DATA_DIR, json_filename)
+    save_to json_filepath, sector_data, format: :pretty_json
   end
 end
