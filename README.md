@@ -44,9 +44,9 @@ You can also run `bundle exec rake docker`.
 
 Each post found at [SuministrosPR.com](https://SuministrosPR.com) will be saved under the `./data` directory as an individual `JSON` file.
 
-Additional details:
+**Additional details:**
 
-- Entry will contain `EMPTY_MUNICIPIO` if `municipio` can't be parsed
+- Entry will contain `EMPTY_MUNICIPIO` if `municipio` can't be parsed.
 - Entry will contain `EMPTY_TITLE` if `title` is empty.
 - Only the first 100 characters of the `title` will be used in filename.
 - Parser timestamp and 'DUPLICATE' are used in filename if file already exists.
