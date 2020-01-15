@@ -9,6 +9,7 @@ HELP_COMMANDS = <<~HELP.freeze
 
     bundle exec rake help - Shows command description.
     bundle exec rake boom - Runs all commands (clean, crawl, zip).
+    bundle exec rake docker - Runs all commands inside a docker container.
     bundle exec rake data:clean - Deletes JSON files in the data directory.
     bundle exec rake data:crawl - Executes web scraper and gets data.
     bundle exec rake data:zip - Zip all JSON files in the data directory.
@@ -27,6 +28,11 @@ task :boom do
   Rake::Task['data:zip'].execute
 end
 
+task :docker do
+  sh 'docker build --rm -t suministrospr-web-scraper .'
+  sh 'docker run -it --rm -v "$PWD":/usr/src/app suministrospr-web-scraper bundle exec rake boom'
+end
+
 namespace :data do
   task :clean do
     puts 'Cleaning data directory...'
@@ -36,7 +42,7 @@ namespace :data do
     end
     puts 'Cleaning complete!'
   end
-  
+
   task :crawl do
     # Create data directory.
     Dir.mkdir(SuministrosPR::DATA_DIR) unless File.exist?(SuministrosPR::DATA_DIR)
