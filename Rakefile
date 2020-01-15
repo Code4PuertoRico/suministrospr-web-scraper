@@ -29,7 +29,7 @@ task :boom do
 end
 
 task :docker do
-  sh 'docker image rm suministrospr-web-scraper'
+  # sh 'docker image rm suministrospr-web-scraper'
   sh 'docker build --rm -t suministrospr-web-scraper .'
   sh 'docker run -it --rm -v "$PWD":/usr/src/app suministrospr-web-scraper bundle exec rake boom'
 end
