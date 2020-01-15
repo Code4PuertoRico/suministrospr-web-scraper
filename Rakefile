@@ -1,4 +1,4 @@
-# Rakefile
+# encoding: UTF-8
 
 require File.expand_path('suministrospr_web_scraper.rb', __dir__)
 require 'zip'

@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+# encoding: UTF-8
 
 require 'i18n'
 require 'kimurai'
