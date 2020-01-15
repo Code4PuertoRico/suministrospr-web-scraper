@@ -31,6 +31,13 @@ For help, type:
 bundle exec rake help
 ```
 
+### Docker
+
+```bash
+$ docker build --rm -t suministrospr-web-scraper .
+$ docker run -it --rm suministrospr-web-scraper bundle exec rake boom
+```
+
 ## Data
 
 Each post found at [SuministrosPR.com](https://SuministrosPR.com) will be saved under the `./data` directory as an individual `JSON` file.

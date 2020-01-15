@@ -1,5 +1,7 @@
 # Gemfile
 
+source 'https://rubygems.org'
+
 gem 'i18n'
 gem 'kimurai'
 gem 'mechanize'
