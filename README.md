@@ -1,5 +1,9 @@
 # SuministrosPR Web Scraper
 
+___This repo is no longer needed. It was written to extract data from the original SuministrosPR site. The rewrite of SuministrosPR by the Code 4 Puerto Rico team breaks the scrapper.___
+
+---- 
+
 This is a web scraper for the [SuministrosPR.com](https://SuministrosPR.com) website. It was developed in order to extract the data and ingest it into a new webapp developed at https://github.com/Code4PuertoRico/suministrospr.
 
 ## Installation
